@@ -19,5 +19,4 @@ dependencies {
     )
 }
 
-//mainClassName = 'com.testlab.Main'
-
+mainClassName = 'com.phsshp.Main'
