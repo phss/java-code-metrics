@@ -16,7 +16,7 @@ public class PrintEverythingListener implements AuditListener {
 
     @Override
     public void fileStarted(AuditEvent evt) {
-        System.out.println("fileStarted");
+        System.out.println("fileStarted: " + evt.getFileName());
     }
 
     @Override
@@ -26,7 +26,7 @@ public class PrintEverythingListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        System.out.println("addError");
+        System.out.println("addError: " + evt.getMessage());
     }
 
     @Override
