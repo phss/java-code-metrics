@@ -1,4 +1,4 @@
-package com.phsshp;
+package com.phsshp.spike;
 
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
