@@ -46,7 +46,15 @@ public class MetricsReporter {
                 @Override
                 public void addError(AuditEvent evt) {
                     int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
-                    metrics.add(new Metrics(new File(evt.getFileName()), value));
+                    File errorFile = new File(evt.getFileName());
+                    File metricFile = null;
+                    for (File file : files) {
+                        if (file.getAbsolutePath().equals(errorFile.getAbsolutePath())) {
+                            metricFile = file;
+                            break;
+                        }
+                    }
+                    metrics.add(new Metrics(metricFile, value));
                 }
 
                 @Override
