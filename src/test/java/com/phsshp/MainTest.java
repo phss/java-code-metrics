@@ -28,7 +28,7 @@ public class MainTest {
     }
 
     @Test
-    public void printTargetFileOnConsole() throws CheckstyleException {
+    public void printTargetFileOnConsole() throws Exception {
         Main.main(new String[] {"src/test/resources/test-project/SomeFile.java"});
 
         assertThat(outContent.toString(), equalTo(linesString(
@@ -36,17 +36,16 @@ public class MainTest {
                 "src/test/resources/test-project/SomeFile.java")));
     }
 
-    @Ignore
     @Test
-    public void printJavaFilesInTargetDirectoyToConsole() throws CheckstyleException {
+    public void printJavaFilesInTargetDirectoyToConsole() throws Exception {
         Main.main(new String[] {"src/test/resources/test-project"});
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file",
-                "src/test/resources/test-project/SomeFile.java",
                 "src/test/resources/test-project/pkg1/AnotherInPackage1.java",
                 "src/test/resources/test-project/pkg1/InPackage1.java",
-                "src/test/resources/test-project/pkg2/InPackage2.java")));
+                "src/test/resources/test-project/pkg2/InPackage2.java",
+                "src/test/resources/test-project/SomeFile.java")));
     }
 
     private String linesString(String ...lines) {

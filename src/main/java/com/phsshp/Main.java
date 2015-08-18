@@ -1,10 +1,17 @@
 package com.phsshp;
 
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
+import java.io.File;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String args[]) throws CheckstyleException {
-        System.out.println("file\n" + args[0]);
+    public static void main(String args[]) throws Exception {
+        JavaFileLister fileLister = new JavaFileLister();
+        List<File> files = fileLister.list(args[0]);
+
+        System.out.println("file");
+        for (File file: files) {
+            System.out.println(file.getPath());
+        }
     }
 }
