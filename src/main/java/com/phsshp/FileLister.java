@@ -1,9 +1,10 @@
 package com.phsshp;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.lang.String.format;
 
 public class FileLister {
 
@@ -12,6 +13,6 @@ public class FileLister {
         if (file.exists()) {
             return Arrays.asList(file);
         }
-        return new ArrayList<>();
+        throw new ConfigurationException(format("Path '%s' not found", path));
     }
 }
