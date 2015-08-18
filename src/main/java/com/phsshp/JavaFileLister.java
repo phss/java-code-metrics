@@ -1,39 +1,25 @@
 package com.phsshp;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.List;
-import java.util.Stack;
-
-import static java.lang.String.format;
+import java.util.stream.Collectors;
 
 public class JavaFileLister {
 
-    public List<File> list(String path) throws FileNotFoundException {
-        List<File> files = new ArrayList<>();
-        Stack<File> filesToProcess = new Stack<>();
-        filesToProcess.push(fileAt(path));
-        while (!filesToProcess.empty()) {
-            File file = filesToProcess.pop();
-            if (file.getAbsolutePath().endsWith(".java")) {
-                files.add(file);
-            }
-            if (file.isDirectory()) {
-                for (File nextFile : file.listFiles()) {
-                    filesToProcess.push(nextFile);
-                }
-            }
-        }
-        return files;
+    private final FileSystem fileSystem;
+    private final PathMatcher javaFileMatcher;
+
+    public JavaFileLister() {
+        fileSystem = FileSystems.getDefault();
+        javaFileMatcher = fileSystem.getPathMatcher("glob:**.java");
     }
 
-    private File fileAt(String path) throws FileNotFoundException {
-        File file = new File(path);
-        if (file.exists()) {
-            return file;
-        }
-        throw new FileNotFoundException(format("Path '%s' not found", path));
+    public List<File> list(String path) throws IOException {
+        return Files.walk(fileSystem.getPath(path))
+                .filter(javaFileMatcher::matches)
+                .map(Path::toFile)
+                .collect(Collectors.toList());
     }
 }

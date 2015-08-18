@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.NoSuchFileException;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
@@ -18,8 +19,8 @@ public class JavaFileListerTest {
 
     @Test
     public void throwExceptionIfFileInPathNotFound() throws Exception {
-        exception.expect(FileNotFoundException.class);
-        exception.expectMessage("Path 'src/test/resources/nosuchdir' not found");
+        exception.expect(NoSuchFileException.class);
+        exception.expectMessage("src/test/resources/nosuchdir");
 
         javaFileLister.list("src/test/resources/nosuchdir");
     }
