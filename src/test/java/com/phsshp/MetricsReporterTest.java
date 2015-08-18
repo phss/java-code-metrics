@@ -22,9 +22,9 @@ public class MetricsReporterTest {
         List<Metrics> metrics = new MetricsReporter().report(files);
 
         assertThat(metrics.size(), is(2));
-        assertThat(metrics.get(0).getFile().getPath(), equalTo("src/test/resources/test-project/SomeFile.java"));
+        assertThat(metrics.get(0).getFile().getName(), equalTo("SomeFile.java"));
         assertThat(metrics.get(0).getValue(), equalTo(1));
-        assertThat(metrics.get(1).getFile().getPath(), equalTo("src/test/resources/test-project/pkg1/AnotherInPackage1.java"));
+        assertThat(metrics.get(1).getFile().getName(), equalTo("AnotherInPackage1.java"));
         assertThat(metrics.get(1).getValue(), equalTo(3));
     }
 
