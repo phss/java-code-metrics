@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.lang.String.format;
 
-public class FileLister {
+public class JavaFileLister {
 
     public List<File> list(String path) throws FileNotFoundException {
         File file = new File(path);

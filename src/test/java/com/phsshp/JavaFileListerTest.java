@@ -12,28 +12,28 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 import static org.junit.Assert.assertThat;
 
-public class FileListerTest {
+public class JavaFileListerTest {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
-    private final FileLister fileLister = new FileLister();
+    private final JavaFileLister javaFileLister = new JavaFileLister();
 
     @Test
     public void throwExceptionIfFileInPathNotFound() throws Exception {
         exception.expect(FileNotFoundException.class);
         exception.expectMessage("Path 'src/test/resources/nosuchdir' not found");
 
-        fileLister.list("src/test/resources/nosuchdir");
+        javaFileLister.list("src/test/resources/nosuchdir");
     }
 
     @Test
     public void listSingleFile() throws Exception {
-        assertThat(fileLister.list("src/test/resources/test-project/SomeFile.java"),
+        assertThat(javaFileLister.list("src/test/resources/test-project/SomeFile.java"),
                 contains(new File("src/test/resources/test-project/SomeFile.java")));
     }
 
     @Test
     public void emptyListForNonJavaFile() throws Exception {
-        assertThat(fileLister.list("src/test/resources/test-project/SomeFile.class"), is(empty()));
+        assertThat(javaFileLister.list("src/test/resources/test-project/SomeFile.class"), is(empty()));
     }
 
 
