@@ -1,5 +1,6 @@
 package com.phsshp;
 
+import com.phsshp.file.JavaFileLister;
 import com.phsshp.metrics.Metrics;
 import com.phsshp.metrics.checkstyle.CheckstyleMetricsReporter;
 

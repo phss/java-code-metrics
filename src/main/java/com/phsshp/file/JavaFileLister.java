@@ -1,4 +1,4 @@
-package com.phsshp;
+package com.phsshp.file;
 
 import java.io.File;
 import java.io.IOException;

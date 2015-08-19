@@ -1,11 +1,11 @@
-package com.phsshp;
+package com.phsshp.file;
 
+import com.phsshp.file.JavaFileLister;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.nio.file.NoSuchFileException;
 
 import static org.hamcrest.Matchers.*;
