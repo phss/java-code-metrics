@@ -2,6 +2,7 @@ package com.phsshp.metrics.checkstyle;
 
 import com.phsshp.file.FileCache;
 import com.phsshp.metrics.Metrics;
+import com.phsshp.metrics.MetricsBuilder;
 import com.phsshp.metrics.MetricsReporter;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
@@ -10,7 +11,6 @@ import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 import java.io.File;
 import java.nio.file.NoSuchFileException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CheckstyleMetricsReporter implements MetricsReporter {
@@ -18,7 +18,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
     @Override
     public List<Metrics> report(List<File> files) {
         FileCache fileCache = new FileCache(files);
-        List<Metrics> metrics = new ArrayList<>();
+        MetricsBuilder metrics = new MetricsBuilder();
 
         Checker checker = null;
         try {
@@ -72,7 +72,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
                 checker.destroy();
             }
         }
-        return metrics;
+        return metrics.build();
     }
 
 }
