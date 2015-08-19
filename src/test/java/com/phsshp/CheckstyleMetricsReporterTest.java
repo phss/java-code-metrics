@@ -10,7 +10,7 @@ import static com.phsshp.testutils.matchers.MetricsMatcher.metricsMatching;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
-public class MetricsReporterTest {
+public class CheckstyleMetricsReporterTest {
 
     @Test
     public void reportMetricsForJavaFiles() throws Exception {
@@ -18,7 +18,7 @@ public class MetricsReporterTest {
                 new File("src/test/resources/test-project/SomeFile.java"),
                 new File("src/test/resources/test-project/pkg1/AnotherInPackage1.java"));
 
-        List<Metrics> metrics = new MetricsReporter().report(files);
+        List<Metrics> metrics = new CheckstyleMetricsReporter().report(files);
 
         assertThat(metrics, contains(
                 metricsMatching("src/test/resources/test-project/SomeFile.java", 1),

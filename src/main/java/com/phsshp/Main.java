@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String args[]) throws Exception {
         List<File> files = new JavaFileLister().list(args[0]);
-        List<Metrics> metrics = new MetricsReporter().report(files);
+        List<Metrics> metrics = new CheckstyleMetricsReporter().report(files);
 
         System.out.println("file,size");
         for (Metrics metric : metrics) {
