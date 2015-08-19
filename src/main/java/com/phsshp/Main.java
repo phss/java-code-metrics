@@ -1,5 +1,8 @@
 package com.phsshp;
 
+import com.phsshp.metrics.Metrics;
+import com.phsshp.metrics.checkstyle.CheckstyleMetricsReporter;
+
 import java.io.File;
 import java.util.List;
 

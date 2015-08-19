@@ -1,5 +1,7 @@
-package com.phsshp;
+package com.phsshp.metrics.checkstyle;
 
+import com.phsshp.metrics.MetricsReporter;
+import com.phsshp.metrics.Metrics;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
