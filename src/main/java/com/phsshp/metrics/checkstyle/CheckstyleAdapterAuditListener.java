@@ -40,6 +40,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
+        // TODO: improve parsing and file/metric wrangling
         int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
         try {
             File metricFile = fileCache.getByAbsolutePath(evt.getFileName());

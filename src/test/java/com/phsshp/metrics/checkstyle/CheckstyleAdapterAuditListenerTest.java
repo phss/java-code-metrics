@@ -19,6 +19,7 @@ public class CheckstyleAdapterAuditListenerTest {
 
     @Test
     public void hardcodedMetricCreation() throws Exception {
+        // TODO: improve test
         File testFile = new File("src/test/resources/test-project/SomeFile.java");
         FileCache fileCache = new FileCache(Arrays.asList(testFile));
         MetricsBuilder metricsBuilder = new MetricsBuilder();
