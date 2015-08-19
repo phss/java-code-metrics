@@ -5,12 +5,9 @@ import com.phsshp.metrics.Metrics;
 import com.phsshp.metrics.MetricsBuilder;
 import com.phsshp.metrics.MetricsReporter;
 import com.puppycrawl.tools.checkstyle.Checker;
-import com.puppycrawl.tools.checkstyle.api.AuditEvent;
-import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 import java.io.File;
-import java.nio.file.NoSuchFileException;
 import java.util.List;
 
 public class CheckstyleMetricsReporter implements MetricsReporter {
@@ -26,43 +23,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
 
             checker.setModuleClassLoader(Checker.class.getClassLoader());
             checker.configure(CheckstyleConfigurationFactory.defaultConfiguration());
-            checker.addListener(new AuditListener() {
-                @Override
-                public void auditStarted(AuditEvent evt) {
-
-                }
-
-                @Override
-                public void auditFinished(AuditEvent evt) {
-
-                }
-
-                @Override
-                public void fileStarted(AuditEvent evt) {
-
-                }
-
-                @Override
-                public void fileFinished(AuditEvent evt) {
-
-                }
-
-                @Override
-                public void addError(AuditEvent evt) {
-                    int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
-                    try {
-                        File metricFile = fileCache.getByAbsolutePath(evt.getFileName());
-                        metrics.add(new Metrics(metricFile, value));
-                    } catch (NoSuchFileException e) {
-                        // TODO: do something
-                    }
-                }
-
-                @Override
-                public void addException(AuditEvent evt, Throwable throwable) {
-
-                }
-            });
+            checker.addListener(new CheckstyleAdapterAuditListener(fileCache, metrics));
 
             checker.process(files);
         } catch (CheckstyleException e) {
