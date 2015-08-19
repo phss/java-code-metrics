@@ -21,8 +21,8 @@ public class MetricsReporterTest {
         List<Metrics> metrics = new MetricsReporter().report(files);
 
         assertThat(metrics, contains(
-                metricsMatching("SomeFile.java", 1),
-                metricsMatching("AnotherInPackage1.java", 3)));
+                metricsMatching("src/test/resources/test-project/SomeFile.java", 1),
+                metricsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", 3)));
     }
 
 }
