@@ -1,7 +1,6 @@
 package com.phsshp.metrics.checkstyle;
 
 import com.phsshp.metrics.Metrics;
-import com.phsshp.metrics.checkstyle.CheckstyleMetricsReporter;
 import org.junit.Test;
 
 import java.io.File;

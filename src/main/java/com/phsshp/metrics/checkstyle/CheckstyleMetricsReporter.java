@@ -1,13 +1,11 @@
 package com.phsshp.metrics.checkstyle;
 
-import com.phsshp.metrics.MetricsReporter;
 import com.phsshp.metrics.Metrics;
+import com.phsshp.metrics.MetricsReporter;
 import com.puppycrawl.tools.checkstyle.Checker;
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
-import com.puppycrawl.tools.checkstyle.api.Configuration;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
             checker = new Checker();
 
             checker.setModuleClassLoader(Checker.class.getClassLoader());
-            checker.configure(newConfig());
+            checker.configure(CheckstyleConfigurationFactory.defaultConfiguration());
             checker.addListener(new AuditListener() {
                 @Override
                 public void auditStarted(AuditEvent evt) {
@@ -75,17 +73,6 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
             }
         }
         return metrics;
-    }
-
-    private Configuration newConfig() {
-        DefaultConfiguration rootConfig = new DefaultConfiguration("Checker");
-        rootConfig.addAttribute("severity", "warning");
-
-        DefaultConfiguration fileLength = new DefaultConfiguration("FileLength");
-        fileLength.addAttribute("max", "0");
-        rootConfig.addChild(fileLength);
-
-        return rootConfig;
     }
 
 }
