@@ -1,5 +1,6 @@
 package com.phsshp.metrics.checkstyle;
 
+import com.phsshp.file.FileCache;
 import com.phsshp.metrics.Metrics;
 import com.phsshp.metrics.MetricsReporter;
 import com.puppycrawl.tools.checkstyle.Checker;
@@ -8,6 +9,7 @@ import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 import java.io.File;
+import java.nio.file.NoSuchFileException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
 
     @Override
     public List<Metrics> report(List<File> files) {
+        FileCache fileCache = new FileCache(files);
         List<Metrics> metrics = new ArrayList<>();
 
         Checker checker = null;
@@ -47,15 +50,12 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
                 @Override
                 public void addError(AuditEvent evt) {
                     int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
-                    File errorFile = new File(evt.getFileName());
-                    File metricFile = null;
-                    for (File file : files) {
-                        if (file.getAbsolutePath().equals(errorFile.getAbsolutePath())) {
-                            metricFile = file;
-                            break;
-                        }
+                    try {
+                        File metricFile = fileCache.getByAbsolutePath(evt.getFileName());
+                        metrics.add(new Metrics(metricFile, value));
+                    } catch (NoSuchFileException e) {
+                        // TODO: do something
                     }
-                    metrics.add(new Metrics(metricFile, value));
                 }
 
                 @Override
