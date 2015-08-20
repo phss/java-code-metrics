@@ -4,6 +4,7 @@ import com.phsshp.file.FileCache;
 import com.phsshp.metrics.Metrics;
 import com.phsshp.metrics.MetricsBuilder;
 import com.phsshp.metrics.MetricsReporter;
+import com.phsshp.metrics.ReportingException;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
@@ -27,7 +28,7 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
 
             checker.process(files);
         } catch (CheckstyleException e) {
-            // TODO: rethrow?
+            throw new ReportingException("Checkstyle failed", e);
         } finally {
             if (checker != null) {
                 checker.destroy();
