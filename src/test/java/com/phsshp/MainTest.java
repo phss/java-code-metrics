@@ -1,10 +1,8 @@
 package com.phsshp;
 
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -33,7 +31,7 @@ public class MainTest {
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,size",
-                "src/test/resources/test-project/SomeFile.java,1")));
+                "src/test/resources/test-project/SomeFile.java,40")));
     }
 
     @Test
@@ -45,7 +43,7 @@ public class MainTest {
                 "src/test/resources/test-project/pkg1/AnotherInPackage1.java,3",
                 "src/test/resources/test-project/pkg1/InPackage1.java,2",
                 "src/test/resources/test-project/pkg2/InPackage2.java,4",
-                "src/test/resources/test-project/SomeFile.java,1")));
+                "src/test/resources/test-project/SomeFile.java,40")));
     }
 
     private String linesString(String ...lines) {

@@ -23,7 +23,7 @@ public class CheckstyleMetricsReporterTest {
         List<Metrics> metrics = new CheckstyleMetricsReporter().report(files);
 
         assertThat(metrics, contains(
-                metricsMatching("src/test/resources/test-project/SomeFile.java", 1),
+                metricsMatching("src/test/resources/test-project/SomeFile.java", 40),
                 metricsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", 3)));
     }
 
