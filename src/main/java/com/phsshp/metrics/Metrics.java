@@ -5,18 +5,18 @@ import java.io.File;
 public class Metrics {
 
     private final File file;
-    private final int value;
+    private final int fileSize;
 
-    public Metrics(File file, int value) {
+    public Metrics(File file, int fileSize) {
         this.file = file;
-        this.value = value;
+        this.fileSize = fileSize;
     }
 
     public File getFile() {
         return file;
     }
 
-    public int getValue() {
-        return value;
+    public int getFileSize() {
+        return fileSize;
     }
 }

@@ -17,7 +17,7 @@ public class Main {
 
         System.out.println("file,size");
         for (Metrics metric : metrics) {
-            System.out.println(format("%s,%d", metric.getFile().getPath(), metric.getValue()));
+            System.out.println(format("%s,%d", metric.getFile().getPath(), metric.getFileSize()));
         }
     }
 }

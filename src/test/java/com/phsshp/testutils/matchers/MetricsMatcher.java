@@ -23,7 +23,7 @@ public class MetricsMatcher extends TypeSafeDiagnosingMatcher<Metrics> {
     @Override
     protected boolean matchesSafely(Metrics actualMetrics, Description mismatchDescription) {
         String actualFile = actualMetrics.getFile().getPath();
-        int actualValue = actualMetrics.getValue();
+        int actualValue = actualMetrics.getFileSize();
         mismatchDescription.appendText(format("metric for file '%s' with value '%d'", actualFile, actualValue));
 
         return actualFile.equals(expectedFile) && actualValue == expectedValue;
