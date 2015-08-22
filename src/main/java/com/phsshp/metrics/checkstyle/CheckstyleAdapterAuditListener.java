@@ -45,7 +45,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
         int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
         try {
             File metricFile = fileCache.getByAbsolutePath(evt.getFileName());
-            metrics.add(new Metrics(metricFile, value));
+            metrics.add(metricFile, value);
         } catch (NoSuchFileException e) {
             throw new ReportingException("No such file", e);
         }
