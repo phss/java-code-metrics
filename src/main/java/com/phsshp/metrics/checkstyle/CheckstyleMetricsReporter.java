@@ -1,8 +1,8 @@
 package com.phsshp.metrics.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.Metrics;
-import com.phsshp.metrics.MetricsBuilder;
+import com.phsshp.metrics.FileMeasurements;
+import com.phsshp.metrics.MetricsReportBuilder;
 import com.phsshp.metrics.MetricsReporter;
 import com.phsshp.metrics.ReportingException;
 import com.puppycrawl.tools.checkstyle.Checker;
@@ -16,12 +16,12 @@ import java.util.List;
 public class CheckstyleMetricsReporter implements MetricsReporter {
 
     @Override
-    public List<Metrics> report(List<File> files) {
-        MetricsBuilder metricsBuilder = new MetricsBuilder();
+    public List<FileMeasurements> report(List<File> files) {
+        MetricsReportBuilder metricsReportBuilder = new MetricsReportBuilder();
         runCheckstyles(files,
                 CheckstyleConfigurationFactory.defaultConfiguration(),
-                new CheckstyleAdapterAuditListener(new FileCache(files), metricsBuilder));
-        return metricsBuilder.build();
+                new CheckstyleAdapterAuditListener(new FileCache(files), metricsReportBuilder));
+        return metricsReportBuilder.build();
     }
 
     private void runCheckstyles(List<File> files, Configuration configuration, AuditListener auditListener) {

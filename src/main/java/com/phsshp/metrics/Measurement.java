@@ -1,11 +1,11 @@
 package com.phsshp.metrics;
 
-public class Measure {
+public class Measurement {
 
     private final MetricType type;
     private final int value;
 
-    public Measure(MetricType type, int value) {
+    public Measurement(MetricType type, int value) {
         this.type = type;
         this.value = value;
     }

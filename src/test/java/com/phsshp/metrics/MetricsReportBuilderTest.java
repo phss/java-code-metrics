@@ -9,15 +9,15 @@ import static com.phsshp.testutils.matchers.MetricsMatcher.metricsMatching;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
-public class MetricsBuilderTest {
+public class MetricsReportBuilderTest {
 
     @Test
     public void buildMetrics() throws Exception {
-        MetricsBuilder builder = new MetricsBuilder();
-        builder.add(new File("somefile.java"), new Measure(MetricType.FILE_SIZE, 42));
-        builder.add(new File("anotherfile.java"), new Measure(MetricType.FILE_SIZE, 30));
+        MetricsReportBuilder builder = new MetricsReportBuilder();
+        builder.add(new File("somefile.java"), new Measurement(MetricType.FILE_SIZE, 42));
+        builder.add(new File("anotherfile.java"), new Measurement(MetricType.FILE_SIZE, 30));
 
-        List<Metrics> metrics = builder.build();
+        List<FileMeasurements> metrics = builder.build();
 
         assertThat(metrics, contains(
                 metricsMatching("somefile.java", 42),

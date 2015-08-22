@@ -1,6 +1,6 @@
 package com.phsshp.metrics.checkstyle;
 
-import com.phsshp.metrics.Metrics;
+import com.phsshp.metrics.FileMeasurements;
 import org.junit.Test;
 
 import java.io.File;
@@ -20,7 +20,7 @@ public class CheckstyleMetricsReporterTest {
                 new File("src/test/resources/test-project/SomeFile.java"),
                 new File("src/test/resources/test-project/pkg1/AnotherInPackage1.java"));
 
-        List<Metrics> metrics = new CheckstyleMetricsReporter().report(files);
+        List<FileMeasurements> metrics = new CheckstyleMetricsReporter().report(files);
 
         assertThat(metrics, contains(
                 metricsMatching("src/test/resources/test-project/SomeFile.java", 40),

@@ -10,9 +10,9 @@ import java.nio.file.NoSuchFileException;
 
 class CheckstyleAdapterAuditListener implements AuditListener {
     private final FileCache fileCache;
-    private final MetricsBuilder metrics;
+    private final MetricsReportBuilder metrics;
 
-    public CheckstyleAdapterAuditListener(FileCache fileCache, MetricsBuilder metrics) {
+    public CheckstyleAdapterAuditListener(FileCache fileCache, MetricsReportBuilder metrics) {
         this.fileCache = fileCache;
         this.metrics = metrics;
     }
@@ -50,9 +50,9 @@ class CheckstyleAdapterAuditListener implements AuditListener {
         }
     }
 
-    private Measure measureFor(AuditEvent evt) {
+    private Measurement measureFor(AuditEvent evt) {
         int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
-        return new Measure(MetricType.FILE_SIZE, value);
+        return new Measurement(MetricType.FILE_SIZE, value);
     }
 
     @Override

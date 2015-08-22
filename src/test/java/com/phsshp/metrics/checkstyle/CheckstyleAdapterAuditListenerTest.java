@@ -1,7 +1,7 @@
 package com.phsshp.metrics.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.MetricsBuilder;
+import com.phsshp.metrics.MetricsReportBuilder;
 import com.phsshp.metrics.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.LocalizedMessage;
@@ -20,15 +20,15 @@ public class CheckstyleAdapterAuditListenerTest {
 
     private final File testFile = new File("src/test/resources/test-project/SomeFile.java");
     private final FileCache fileCache = new FileCache(Arrays.asList(testFile));
-    private final MetricsBuilder metricsBuilder = new MetricsBuilder();
-    private final CheckstyleAdapterAuditListener auditListener = new CheckstyleAdapterAuditListener(fileCache, metricsBuilder);
+    private final MetricsReportBuilder metricsReportBuilder = new MetricsReportBuilder();
+    private final CheckstyleAdapterAuditListener auditListener = new CheckstyleAdapterAuditListener(fileCache, metricsReportBuilder);
 
     @Test
     public void hardcodedMetricCreation() throws Exception {
         // TODO: improve test
         auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(), checkstyleMessageWith("First second third 42 rest")));
 
-        assertThat(metricsBuilder.build(), contains(
+        assertThat(metricsReportBuilder.build(), contains(
                 metricsMatching("src/test/resources/test-project/SomeFile.java", 42)));
     }
 
