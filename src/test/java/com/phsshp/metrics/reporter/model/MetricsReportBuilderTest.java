@@ -1,5 +1,9 @@
-package com.phsshp.metrics;
+package com.phsshp.metrics.reporter.model;
 
+import com.phsshp.metrics.model.FileMeasurements;
+import com.phsshp.metrics.model.Measurement;
+import com.phsshp.metrics.model.MetricType;
+import com.phsshp.metrics.model.MetricsReportBuilder;
 import org.junit.Test;
 
 import java.io.File;

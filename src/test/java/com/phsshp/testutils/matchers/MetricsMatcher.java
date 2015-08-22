@@ -1,6 +1,6 @@
 package com.phsshp.testutils.matchers;
 
-import com.phsshp.metrics.FileMeasurements;
+import com.phsshp.metrics.model.FileMeasurements;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 

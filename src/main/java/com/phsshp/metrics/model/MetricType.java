@@ -1,4 +1,4 @@
-package com.phsshp.metrics;
+package com.phsshp.metrics.model;
 
 public enum MetricType {
     FILE_SIZE

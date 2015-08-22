@@ -1,10 +1,10 @@
-package com.phsshp.metrics.checkstyle;
+package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.FileMeasurements;
-import com.phsshp.metrics.MetricsReportBuilder;
-import com.phsshp.metrics.MetricsReporter;
-import com.phsshp.metrics.ReportingException;
+import com.phsshp.metrics.model.FileMeasurements;
+import com.phsshp.metrics.model.MetricsReportBuilder;
+import com.phsshp.metrics.reporter.MetricsReporter;
+import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import com.puppycrawl.tools.checkstyle.api.CheckstyleException;

@@ -1,6 +1,6 @@
-package com.phsshp.metrics.checkstyle;
+package com.phsshp.metrics.reporter.checkstyle;
 
-import com.phsshp.metrics.FileMeasurements;
+import com.phsshp.metrics.model.FileMeasurements;
 import org.junit.Test;
 
 import java.io.File;

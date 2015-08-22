@@ -1,4 +1,6 @@
-package com.phsshp.metrics;
+package com.phsshp.metrics.reporter;
+
+import com.phsshp.metrics.model.FileMeasurements;
 
 import java.io.File;
 import java.util.List;

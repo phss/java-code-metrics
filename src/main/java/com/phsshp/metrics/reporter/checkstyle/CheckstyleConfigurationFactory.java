@@ -1,4 +1,4 @@
-package com.phsshp.metrics.checkstyle;
+package com.phsshp.metrics.reporter.checkstyle;
 
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.api.Configuration;

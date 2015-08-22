@@ -1,8 +1,8 @@
 package com.phsshp;
 
 import com.phsshp.file.JavaFileLister;
-import com.phsshp.metrics.FileMeasurements;
-import com.phsshp.metrics.checkstyle.CheckstyleMetricsReporter;
+import com.phsshp.metrics.model.FileMeasurements;
+import com.phsshp.metrics.reporter.checkstyle.CheckstyleMetricsReporter;
 
 import java.io.File;
 import java.util.List;

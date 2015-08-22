@@ -1,6 +1,4 @@
-package com.phsshp.metrics;
-
-import java.nio.file.NoSuchFileException;
+package com.phsshp.metrics.reporter;
 
 public class ReportingException extends RuntimeException {
     public ReportingException(String message, Throwable throwable) {

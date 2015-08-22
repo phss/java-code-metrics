@@ -1,4 +1,4 @@
-package com.phsshp.metrics;
+package com.phsshp.metrics.model;
 
 import java.io.File;
 

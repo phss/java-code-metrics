@@ -1,8 +1,8 @@
-package com.phsshp.metrics.checkstyle;
+package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.MetricsReportBuilder;
-import com.phsshp.metrics.ReportingException;
+import com.phsshp.metrics.model.MetricsReportBuilder;
+import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.LocalizedMessage;
 import com.puppycrawl.tools.checkstyle.api.SeverityLevel;
