@@ -6,18 +6,18 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import static java.lang.String.format;
 
-public class MetricsMatcher extends TypeSafeDiagnosingMatcher<FileMeasurements> {
+public class FileMeasurementsMatcher extends TypeSafeDiagnosingMatcher<FileMeasurements> {
 
     private final String expectedFile;
     private final int expectedValue;
 
-    private MetricsMatcher(String expectedFile, int expectedValue) {
+    private FileMeasurementsMatcher(String expectedFile, int expectedValue) {
         this.expectedFile = expectedFile;
         this.expectedValue = expectedValue;
     }
 
-    public static MetricsMatcher metricsMatching(String expectedFile, int expectedValue) {
-        return new MetricsMatcher(expectedFile, expectedValue);
+    public static FileMeasurementsMatcher measurementsMatching(String expectedFile, int expectedValue) {
+        return new FileMeasurementsMatcher(expectedFile, expectedValue);
     }
 
     @Override

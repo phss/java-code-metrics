@@ -1,7 +1,7 @@
 package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.model.FileMeasurements;
+import com.phsshp.metrics.model.MetricsReport;
 import com.phsshp.metrics.model.MetricsReportBuilder;
 import com.phsshp.metrics.reporter.MetricsReporter;
 import com.phsshp.metrics.reporter.ReportingException;
@@ -16,7 +16,7 @@ import java.util.List;
 public class CheckstyleMetricsReporter implements MetricsReporter {
 
     @Override
-    public List<FileMeasurements> report(List<File> files) {
+    public MetricsReport report(List<File> files) {
         MetricsReportBuilder metricsReportBuilder = new MetricsReportBuilder();
         runCheckstyles(files,
                 CheckstyleConfigurationFactory.defaultConfiguration(),

@@ -1,13 +1,13 @@
 package com.phsshp.metrics.reporter.checkstyle;
 
-import com.phsshp.metrics.model.FileMeasurements;
+import com.phsshp.metrics.model.MetricsReport;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.phsshp.testutils.matchers.MetricsMatcher.metricsMatching;
+import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
@@ -20,11 +20,11 @@ public class CheckstyleMetricsReporterTest {
                 new File("src/test/resources/test-project/SomeFile.java"),
                 new File("src/test/resources/test-project/pkg1/AnotherInPackage1.java"));
 
-        List<FileMeasurements> metrics = new CheckstyleMetricsReporter().report(files);
+        MetricsReport report = new CheckstyleMetricsReporter().report(files);
 
-        assertThat(metrics, contains(
-                metricsMatching("src/test/resources/test-project/SomeFile.java", 40),
-                metricsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", 3)));
+        assertThat(report.getMeasurements(), contains(
+                measurementsMatching("src/test/resources/test-project/SomeFile.java", 40),
+                measurementsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", 3)));
     }
 
 }

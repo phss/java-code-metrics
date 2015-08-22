@@ -12,7 +12,7 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Arrays;
 
-import static com.phsshp.testutils.matchers.MetricsMatcher.metricsMatching;
+import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
@@ -28,8 +28,8 @@ public class CheckstyleAdapterAuditListenerTest {
         // TODO: improve test
         auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(), checkstyleMessageWith("First second third 42 rest")));
 
-        assertThat(metricsReportBuilder.build(), contains(
-                metricsMatching("src/test/resources/test-project/SomeFile.java", 42)));
+        assertThat(metricsReportBuilder.build().getMeasurements(), contains(
+                measurementsMatching("src/test/resources/test-project/SomeFile.java", 42)));
     }
 
     @Test(expected = ReportingException.class)
