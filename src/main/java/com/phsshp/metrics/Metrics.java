@@ -5,11 +5,11 @@ import java.io.File;
 public class Metrics {
 
     private final File file;
-    private final int fileSize;
+    private final Measure fileSizeMeasure;
 
-    public Metrics(File file, int fileSize) {
+    public Metrics(File file, Measure fileSizeMeasure) {
         this.file = file;
-        this.fileSize = fileSize;
+        this.fileSizeMeasure = fileSizeMeasure;
     }
 
     public File getFile() {
@@ -17,6 +17,6 @@ public class Metrics {
     }
 
     public int getFileSize() {
-        return fileSize;
+        return fileSizeMeasure.getValue();
     }
 }

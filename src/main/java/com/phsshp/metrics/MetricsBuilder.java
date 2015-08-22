@@ -13,7 +13,7 @@ public class MetricsBuilder {
     }
 
     public void add(File file, int value) {
-        allMetrics.add(new Metrics(file, value));
+        allMetrics.add(new Metrics(file, new Measure(MetricType.FILE_SIZE, value)));
     }
 
     public List<Metrics> build() {
