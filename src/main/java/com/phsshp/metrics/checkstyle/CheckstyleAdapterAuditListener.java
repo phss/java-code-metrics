@@ -1,9 +1,7 @@
 package com.phsshp.metrics.checkstyle;
 
 import com.phsshp.file.FileCache;
-import com.phsshp.metrics.Metrics;
-import com.phsshp.metrics.MetricsBuilder;
-import com.phsshp.metrics.ReportingException;
+import com.phsshp.metrics.*;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
 
@@ -41,7 +39,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        metrics.add(fileFor(evt), metricFor(evt));
+        metrics.add(fileFor(evt), measureFor(evt));
     }
 
     private File fileFor(AuditEvent evt) {
@@ -52,8 +50,9 @@ class CheckstyleAdapterAuditListener implements AuditListener {
         }
     }
 
-    private int metricFor(AuditEvent evt) {
-        return Integer.parseInt(evt.getMessage().split(" ")[3]);
+    private Measure measureFor(AuditEvent evt) {
+        int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
+        return new Measure(MetricType.FILE_SIZE, value);
     }
 
     @Override

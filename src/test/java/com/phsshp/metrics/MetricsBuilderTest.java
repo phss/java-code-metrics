@@ -14,8 +14,8 @@ public class MetricsBuilderTest {
     @Test
     public void buildMetrics() throws Exception {
         MetricsBuilder builder = new MetricsBuilder();
-        builder.add(new File("somefile.java"), 42);
-        builder.add(new File("anotherfile.java"), 30);
+        builder.add(new File("somefile.java"), new Measure(MetricType.FILE_SIZE, 42));
+        builder.add(new File("anotherfile.java"), new Measure(MetricType.FILE_SIZE, 30));
 
         List<Metrics> metrics = builder.build();
 

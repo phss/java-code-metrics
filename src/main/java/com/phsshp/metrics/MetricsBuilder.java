@@ -12,8 +12,8 @@ public class MetricsBuilder {
         allMetrics = new ArrayList<>();
     }
 
-    public void add(File file, int value) {
-        allMetrics.add(new Metrics(file, new Measure(MetricType.FILE_SIZE, value)));
+    public void add(File file, Measure measure) {
+        allMetrics.add(new Metrics(file, measure));
     }
 
     public List<Metrics> build() {
