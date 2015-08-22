@@ -41,18 +41,23 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        // TODO: improve parsing and file/metric wrangling
-        int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
+        metrics.add(fileFor(evt), metricFor(evt));
+    }
+
+    private File fileFor(AuditEvent evt) {
         try {
-            File metricFile = fileCache.getByAbsolutePath(evt.getFileName());
-            metrics.add(metricFile, value);
+            return fileCache.getByAbsolutePath(evt.getFileName());
         } catch (NoSuchFileException e) {
             throw new ReportingException("No such file", e);
         }
     }
 
+    private int metricFor(AuditEvent evt) {
+        return Integer.parseInt(evt.getMessage().split(" ")[3]);
+    }
+
     @Override
     public void addException(AuditEvent evt, Throwable throwable) {
-
+        // TODO: handle exceptions being thrown. Print it?
     }
 }
