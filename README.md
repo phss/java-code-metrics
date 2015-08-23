@@ -3,7 +3,7 @@ Generate Java code metrics
 
 ## Building
 
-To generate the UberJAR under build/libs:
+To generate the UberJAR under `build/libs`:
 
     gradle shadowJar
 
