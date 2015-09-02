@@ -11,6 +11,8 @@ import com.puppycrawl.tools.checkstyle.api.AuditListener;
 import java.io.File;
 import java.nio.file.NoSuchFileException;
 
+import static java.lang.String.format;
+
 class CheckstyleAdapterAuditListener implements AuditListener {
     private final FileCache fileCache;
     private final MetricsReportBuilder metrics;
@@ -60,6 +62,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addException(AuditEvent evt, Throwable throwable) {
-        // TODO: handle exceptions being thrown. Print it?
+        System.err.println(format("Exception thrown while processing %s", evt.getFileName()));
+        throwable.printStackTrace();
     }
 }
