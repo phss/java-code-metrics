@@ -15,7 +15,6 @@ public class CheckstyleMetricsReporterTest {
 
     @Test
     public void reportMetricsForJavaFiles() throws Exception {
-        // TODO: at some point make test less end to end
         List<File> files = Arrays.asList(
                 new File("src/test/resources/test-project/SomeFile.java"),
                 new File("src/test/resources/test-project/pkg1/AnotherInPackage1.java"));

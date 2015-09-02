@@ -25,7 +25,6 @@ public class CheckstyleAdapterAuditListenerTest {
 
     @Test
     public void hardcodedMetricCreation() throws Exception {
-        // TODO: improve test
         auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(), checkstyleMessageWith("First second third 42 rest")));
 
         assertThat(metricsReportBuilder.build().getMeasurements(), contains(
