@@ -7,6 +7,7 @@ import com.phsshp.metrics.model.MetricsReportBuilder;
 import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
+import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
 
 import java.io.File;
 import java.nio.file.NoSuchFileException;
@@ -56,6 +57,9 @@ class CheckstyleAdapterAuditListener implements AuditListener {
     }
 
     private Measurement measureFor(AuditEvent evt) {
+        if (!evt.getSourceName().equals(FileLengthCheck.class.getName())) {
+            throw new ReportingException("Unsupported metric " + evt.getSourceName());
+        }
         int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
         return new Measurement(MetricType.FILE_SIZE, value);
     }

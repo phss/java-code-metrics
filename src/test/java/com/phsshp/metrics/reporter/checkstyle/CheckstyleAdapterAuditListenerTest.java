@@ -25,7 +25,7 @@ public class CheckstyleAdapterAuditListenerTest {
 
     @Test
     public void hardcodedMetricCreation() throws Exception {
-        auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(), checkstyleMessageWith("First second third 42 rest")));
+        auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(), checkstyleMessageWith("First second third 42 rest", FileLengthCheck.class)));
 
         assertThat(metricsReportBuilder.build().getMeasurements(), contains(
                 measurementsMatching("src/test/resources/test-project/SomeFile.java", 42)));
@@ -33,10 +33,17 @@ public class CheckstyleAdapterAuditListenerTest {
 
     @Test(expected = ReportingException.class)
     public void throwExceptionWhenReportingErrorForFileNotTracked() throws Exception {
-        auditListener.addError(new AuditEvent(this, "NoSuchFile.java", checkstyleMessageWith("First second third 42 rest")));
+        auditListener.addError(new AuditEvent(this, "NoSuchFile.java",
+            checkstyleMessageWith("First second third 42 rest", FileLengthCheck.class)));
     }
 
-    private LocalizedMessage checkstyleMessageWith(String message) {
-        return new LocalizedMessage(0, 0, null, null, null, SeverityLevel.WARNING, null, FileLengthCheck.class, message);
+    @Test(expected = ReportingException.class)
+    public void throwExceptionWhenReportingErrorForUnsupportedMetric() throws Exception {
+        auditListener.addError(new AuditEvent(this, testFile.getAbsolutePath(),
+            checkstyleMessageWith("First second third 42 rest", CheckstyleAdapterAuditListenerTest.class)));
+    }
+
+    private LocalizedMessage checkstyleMessageWith(String message, Class<?> eventClass) {
+        return new LocalizedMessage(0, 0, null, null, null, SeverityLevel.WARNING, null, eventClass, message);
     }
 }
