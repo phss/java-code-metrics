@@ -45,7 +45,8 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        metrics.add(fileFor(evt), measureFor(evt));
+        Measurement measurement = new Measurement(metricTypeFrom(evt), valueFrom(evt));
+        metrics.add(fileFor(evt), measurement);
     }
 
     private File fileFor(AuditEvent evt) {
@@ -56,12 +57,15 @@ class CheckstyleAdapterAuditListener implements AuditListener {
         }
     }
 
-    private Measurement measureFor(AuditEvent evt) {
-        if (!evt.getSourceName().equals(FileLengthCheck.class.getName())) {
-            throw new ReportingException("Unsupported metric " + evt.getSourceName());
+    private MetricType metricTypeFrom(AuditEvent evt) {
+        if (evt.getSourceName().equals(FileLengthCheck.class.getName())) {
+            return MetricType.FILE_SIZE;
         }
-        int value = Integer.parseInt(evt.getMessage().split(" ")[3]);
-        return new Measurement(MetricType.FILE_SIZE, value);
+        throw new ReportingException("Unsupported metric " + evt.getSourceName());
+    }
+
+    private int valueFrom(AuditEvent evt) {
+        return Integer.parseInt(evt.getMessage().split(" ")[3]);
     }
 
     @Override
