@@ -1,3 +1,4 @@
-three lines
-        three lines
-        three lines
+package testproject.pkg1;
+
+public class AnotherInPackage1 {
+}

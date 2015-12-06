@@ -2,12 +2,10 @@ package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.file.FileCache;
 import com.phsshp.metrics.model.Measurement;
-import com.phsshp.metrics.model.MetricType;
 import com.phsshp.metrics.model.MetricsReportBuilder;
 import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.api.AuditListener;
-import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
 
 import java.io.File;
 import java.nio.file.NoSuchFileException;
@@ -49,7 +47,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        metrics.add(fileFor(evt), auditEventConverter.convert(evt));
+        metrics.add(fileFor(evt), convertToMeasurement(evt));
     }
 
     private File fileFor(AuditEvent evt) {
@@ -57,6 +55,14 @@ class CheckstyleAdapterAuditListener implements AuditListener {
             return fileCache.getByAbsolutePath(evt.getFileName());
         } catch (NoSuchFileException e) {
             throw new ReportingException("No such file", e);
+        }
+    }
+
+    private Measurement convertToMeasurement(AuditEvent evt) {
+        try {
+            return auditEventConverter.convert(evt);
+        } catch (IllegalArgumentException e) {
+            throw new ReportingException("Cannot parse metric", e);
         }
     }
 

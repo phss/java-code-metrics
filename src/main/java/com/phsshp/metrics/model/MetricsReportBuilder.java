@@ -13,7 +13,10 @@ public class MetricsReportBuilder {
     }
 
     public void add(File file, Measurement measurement) {
-        measurements.add(new FileMeasurements(file, measurement));
+        // TODO remove filtering by file size
+        if (measurement.getType() == MetricType.FILE_SIZE) {
+            measurements.add(new FileMeasurements(file, measurement));
+        }
     }
 
     public MetricsReport build() {

@@ -4,6 +4,7 @@ import com.phsshp.metrics.model.Measurement;
 import com.phsshp.metrics.model.MetricType;
 import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
+import com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck;
 import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
 
 public class AuditEventToMeasurementConverter {
@@ -15,8 +16,10 @@ public class AuditEventToMeasurementConverter {
     private MetricType metricTypeFrom(AuditEvent evt) {
         if (evt.getSourceName().equals(FileLengthCheck.class.getName())) {
             return MetricType.FILE_SIZE;
+        } else if (evt.getSourceName().equals(CyclomaticComplexityCheck.class.getName())) {
+            return MetricType.CYCLOMATIC_COMPLEXITY;
         }
-        throw new ReportingException("Unsupported metric " + evt.getSourceName());
+        throw new IllegalArgumentException("Unsupported metric " + evt.getSourceName());
     }
 
     private int valueFrom(AuditEvent evt) {
