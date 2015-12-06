@@ -14,6 +14,7 @@ public class AuditEventToMeasurementConverter {
     }
 
     private MetricType metricTypeFrom(AuditEvent evt) {
+        // TODO remove if/else chain
         if (evt.getSourceName().equals(FileLengthCheck.class.getName())) {
             return MetricType.FILE_SIZE;
         } else if (evt.getSourceName().equals(CyclomaticComplexityCheck.class.getName())) {

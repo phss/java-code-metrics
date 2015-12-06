@@ -19,6 +19,7 @@ public class MetricsReportBuilderTest {
         MetricsReportBuilder builder = new MetricsReportBuilder();
         builder.add(new File("somefile.java"), new Measurement(MetricType.FILE_SIZE, 42));
         builder.add(new File("anotherfile.java"), new Measurement(MetricType.FILE_SIZE, 30));
+        builder.add(new File("ignoredmetric.java"), new Measurement(MetricType.CYCLOMATIC_COMPLEXITY, 42));
 
         MetricsReport report = builder.build();
 
