@@ -19,9 +19,11 @@ import static org.hamcrest.Matchers.contains;
 public class CheckstyleAdapterAuditListenerTest {
 
     private final File testFile = new File("src/test/resources/test-project/SomeFile.java");
+    private final AuditEventToMeasurementConverter auditEventConverter = new AuditEventToMeasurementConverter();
     private final FileCache fileCache = new FileCache(Arrays.asList(testFile));
     private final MetricsReportBuilder metricsReportBuilder = new MetricsReportBuilder();
-    private final CheckstyleAdapterAuditListener auditListener = new CheckstyleAdapterAuditListener(fileCache, metricsReportBuilder);
+    private final CheckstyleAdapterAuditListener auditListener = new CheckstyleAdapterAuditListener(auditEventConverter,
+            fileCache, metricsReportBuilder);
 
     @Test
     public void hardcodedMetricCreation() throws Exception {

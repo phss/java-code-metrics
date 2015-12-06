@@ -20,7 +20,8 @@ public class CheckstyleMetricsReporter implements MetricsReporter {
         MetricsReportBuilder metricsReportBuilder = new MetricsReportBuilder();
         runCheckstyles(files,
                 CheckstyleConfigurationFactory.defaultConfiguration(),
-                new CheckstyleAdapterAuditListener(new FileCache(files), metricsReportBuilder));
+                new CheckstyleAdapterAuditListener(new AuditEventToMeasurementConverter(),
+                        new FileCache(files), metricsReportBuilder));
         return metricsReportBuilder.build();
     }
 

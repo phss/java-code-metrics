@@ -15,10 +15,14 @@ import java.nio.file.NoSuchFileException;
 import static java.lang.String.format;
 
 class CheckstyleAdapterAuditListener implements AuditListener {
+    private final AuditEventToMeasurementConverter auditEventConverter;
     private final FileCache fileCache;
     private final MetricsReportBuilder metrics;
 
-    public CheckstyleAdapterAuditListener(FileCache fileCache, MetricsReportBuilder metrics) {
+    public CheckstyleAdapterAuditListener(AuditEventToMeasurementConverter auditEventConverter,
+                                          FileCache fileCache, MetricsReportBuilder metrics)
+    {
+        this.auditEventConverter = auditEventConverter;
         this.fileCache = fileCache;
         this.metrics = metrics;
     }
@@ -45,8 +49,7 @@ class CheckstyleAdapterAuditListener implements AuditListener {
 
     @Override
     public void addError(AuditEvent evt) {
-        Measurement measurement = new Measurement(metricTypeFrom(evt), valueFrom(evt));
-        metrics.add(fileFor(evt), measurement);
+        metrics.add(fileFor(evt), auditEventConverter.convert(evt));
     }
 
     private File fileFor(AuditEvent evt) {
@@ -55,17 +58,6 @@ class CheckstyleAdapterAuditListener implements AuditListener {
         } catch (NoSuchFileException e) {
             throw new ReportingException("No such file", e);
         }
-    }
-
-    private MetricType metricTypeFrom(AuditEvent evt) {
-        if (evt.getSourceName().equals(FileLengthCheck.class.getName())) {
-            return MetricType.FILE_SIZE;
-        }
-        throw new ReportingException("Unsupported metric " + evt.getSourceName());
-    }
-
-    private int valueFrom(AuditEvent evt) {
-        return Integer.parseInt(evt.getMessage().split(" ")[3]);
     }
 
     @Override
