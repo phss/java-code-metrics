@@ -1,6 +1,7 @@
 package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.metrics.model.MetricsReport;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
@@ -13,6 +14,7 @@ import static org.hamcrest.Matchers.contains;
 
 public class CheckstyleMetricsReporterTest {
 
+    @Ignore
     @Test
     public void reportMetricsForJavaFiles() throws Exception {
         List<File> files = Arrays.asList(
