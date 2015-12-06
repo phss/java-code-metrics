@@ -2,7 +2,6 @@ package com.phsshp.metrics.reporter.checkstyle;
 
 import com.phsshp.metrics.model.Measurement;
 import com.phsshp.metrics.model.MetricType;
-import com.phsshp.metrics.reporter.ReportingException;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck;
 import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
