@@ -24,7 +24,6 @@ public class MetricsReportBuilderTest {
 
         MetricsReport report = builder.build();
 
-        assertThat(report.getMeasurements().get(0), hasFileSize(142));
         assertThat(report.getMeasurements(), contains(
                 measurementsMatching("somefile.java", 42),
                 measurementsMatching("anotherfile.java", 30)));
