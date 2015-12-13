@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
+import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 
@@ -22,8 +23,8 @@ public class CheckstyleMetricsReporterTest {
         MetricsReport report = new CheckstyleMetricsReporter().report(files);
 
         assertThat(report.getMeasurements(), contains(
-                measurementsMatching("src/test/resources/test-project/SomeFile.java", 40),
-                measurementsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", 4)));
+                measurementsMatching("src/test/resources/test-project/SomeFile.java", hasFileSize(40)),
+                measurementsMatching("src/test/resources/test-project/pkg1/AnotherInPackage1.java", hasFileSize(4))));
     }
 
 }

@@ -2,6 +2,7 @@ package com.phsshp.testutils.matchers;
 
 import com.phsshp.metrics.model.FileMeasurements;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
 import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
@@ -10,25 +11,24 @@ import static java.lang.String.format;
 public class FileMeasurementsMatcher extends TypeSafeDiagnosingMatcher<FileMeasurements> {
 
     private final String expectedFile;
-    private final int expectedValue;
-    private final FileSizeMeasurementsMatcher fileSizeMatcher;
+    private final Matcher<FileMeasurements> fileSizeMatcher;
 
-    private FileMeasurementsMatcher(String expectedFile, int expectedValue) {
+    private FileMeasurementsMatcher(String expectedFile, Matcher<FileMeasurements> fileSizeMatcher) {
         this.expectedFile = expectedFile;
-        this.expectedValue = expectedValue;
-        fileSizeMatcher = hasFileSize(expectedValue);
+        this.fileSizeMatcher = fileSizeMatcher;
     }
 
-    public static FileMeasurementsMatcher measurementsMatching(String expectedFile, int expectedValue) {
-        return new FileMeasurementsMatcher(expectedFile, expectedValue);
+    public static FileMeasurementsMatcher measurementsMatching(String expectedFile, Matcher<FileMeasurements> fileSizeMatcher) {
+        return new FileMeasurementsMatcher(expectedFile, fileSizeMatcher);
     }
 
     @Override
     protected boolean matchesSafely(FileMeasurements actualFileMeasurements, Description mismatchDescription) {
         String actualFile = actualFileMeasurements.getFile().getPath();
         mismatchDescription.appendText(format("metric for file '%s'", actualFile));
+        fileSizeMatcher.describeMismatch(actualFileMeasurements, mismatchDescription);
 
-        return actualFile.equals(expectedFile) && fileSizeMatcher.matchesSafely(actualFileMeasurements, mismatchDescription);
+        return actualFile.equals(expectedFile) && fileSizeMatcher.matches(actualFileMeasurements);
     }
 
     @Override

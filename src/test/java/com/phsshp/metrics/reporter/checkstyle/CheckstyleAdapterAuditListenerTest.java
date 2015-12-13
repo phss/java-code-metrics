@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.Arrays;
 
 import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
+import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.mockito.Mockito.mock;
@@ -34,7 +35,7 @@ public class CheckstyleAdapterAuditListenerTest {
         auditListener.addError(event);
 
         assertThat(metricsReportBuilder.build().getMeasurements(), contains(
-                measurementsMatching("src/test/resources/test-project/SomeFile.java", 42)));
+                measurementsMatching("src/test/resources/test-project/SomeFile.java", hasFileSize(42))));
     }
 
     @Test(expected = ReportingException.class)
