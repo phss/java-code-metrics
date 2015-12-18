@@ -1,5 +1,5 @@
 package com.phsshp.metrics.model;
 
 public enum MetricType {
-    CYCLOMATIC_COMPLEXITY, FILE_SIZE
+    FANOUT_COMPLEXITY, CYCLOMATIC_COMPLEXITY, FILE_SIZE
 }

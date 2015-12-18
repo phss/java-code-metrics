@@ -3,6 +3,7 @@ package com.phsshp.metrics.reporter.checkstyle;
 import com.phsshp.metrics.model.Measurement;
 import com.phsshp.metrics.model.MetricType;
 import com.puppycrawl.tools.checkstyle.api.AuditEvent;
+import com.puppycrawl.tools.checkstyle.checks.metrics.ClassFanOutComplexityCheck;
 import com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck;
 import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
 
@@ -13,7 +14,8 @@ public class AuditEventToMeasurementConverter {
 
     private enum MetricConversion {
         FILE_SIZE(MetricType.FILE_SIZE, 3),
-        CYCLOMATIC(MetricType.CYCLOMATIC_COMPLEXITY, 3);
+        CYCLOMATIC(MetricType.CYCLOMATIC_COMPLEXITY, 3),
+        FANOUT(MetricType.FANOUT_COMPLEXITY, 4);
 
         public final MetricType metric;
         private final int valueIndex;
@@ -34,6 +36,7 @@ public class AuditEventToMeasurementConverter {
         config = new HashMap<>();
         config.put(FileLengthCheck.class.getName(), MetricConversion.FILE_SIZE);
         config.put(CyclomaticComplexityCheck.class.getName(), MetricConversion.CYCLOMATIC);
+        config.put(ClassFanOutComplexityCheck.class.getName(), MetricConversion.FANOUT);
     }
 
     public Measurement convert(AuditEvent event) throws IllegalArgumentException {
