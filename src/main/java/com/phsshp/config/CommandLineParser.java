@@ -8,6 +8,7 @@ public class CommandLineParser {
 
     public CommandLineParser() {
         options = new Options();
+        options.addOption("output", true, "Filename to save output (default is stdout)");
     }
 
     public String parse(String args[]) {
@@ -28,7 +29,8 @@ public class CommandLineParser {
 
     private void printHelpAndExit() {
         HelpFormatter helpFormatter = new HelpFormatter();
-        helpFormatter.printHelp("java-code-metrics", "Code metrics for Java source code", options, "");
+        helpFormatter.printHelp("java-code-metrics  [OPTION]... [FILE]",
+                "Code metrics for Java source code", options, "");
         System.exit(1);
     }
 }
