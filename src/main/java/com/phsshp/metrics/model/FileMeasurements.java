@@ -1,15 +1,21 @@
 package com.phsshp.metrics.model;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class FileMeasurements {
 
     private final File file;
-    private final Measurement fileSizeMeasurement;
+    private final ArrayList<Measurement> measurements;
 
-    public FileMeasurements(File file, Measurement fileSizeMeasurement) {
+    public FileMeasurements(File file) {
         this.file = file;
-        this.fileSizeMeasurement = fileSizeMeasurement;
+        measurements = new ArrayList<>();
+    }
+
+    public void add(Measurement measurement) {
+        this.measurements.add(measurement);
     }
 
     public File getFile() {
@@ -17,10 +23,15 @@ public class FileMeasurements {
     }
 
     public int getFileSize() {
-        return fileSizeMeasurement.getValue();
+        return getFirstValue(MetricType.FILE_SIZE);
     }
 
     public int getCyclomaticComplexity() {
-        return 0;
+        return getFirstValue(MetricType.CYCLOMATIC_COMPLEXITY);
+    }
+
+    private int getFirstValue(MetricType metric) {
+        Optional<Measurement> fileSizeM = measurements.stream().filter(m -> m.getType() ==  metric).findFirst();
+        return fileSizeM.map(Measurement::getValue).orElse(0);
     }
 }

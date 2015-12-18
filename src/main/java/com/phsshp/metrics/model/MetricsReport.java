@@ -1,16 +1,16 @@
 package com.phsshp.metrics.model;
 
-import java.util.List;
+import java.util.Collection;
 
 public class MetricsReport {
 
-    private final List<FileMeasurements> measurements;
+    private final Collection<FileMeasurements> measurements;
 
-    public MetricsReport(List<FileMeasurements> measurements) {
+    public MetricsReport(Collection<FileMeasurements> measurements) {
         this.measurements = measurements;
     }
 
-    public List<FileMeasurements> getMeasurements() {
+    public Collection<FileMeasurements> getMeasurements() {
         return measurements;
     }
 }
