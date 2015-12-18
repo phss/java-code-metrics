@@ -18,7 +18,6 @@ import static org.hamcrest.Matchers.contains;
 
 public class MetricsReportBuilderTest {
 
-    @Ignore
     @Test
     public void buildMetrics() throws Exception {
         MetricsReportBuilder builder = new MetricsReportBuilder();

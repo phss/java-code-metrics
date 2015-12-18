@@ -31,7 +31,7 @@ public class FileMeasurements {
     }
 
     private int getFirstValue(MetricType metric) {
-        Optional<Measurement> fileSizeM = measurements.stream().filter(m -> m.getType() ==  metric).findFirst();
-        return fileSizeM.map(Measurement::getValue).orElse(0);
+        Optional<Measurement> measurement = measurements.stream().filter(m -> m.getType() ==  metric).findFirst();
+        return measurement.map(Measurement::getValue).orElse(0);
     }
 }

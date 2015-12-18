@@ -13,12 +13,9 @@ public class MetricsReportBuilder {
     }
 
     public void add(File file, Measurement measurement) {
-        // TODO remove filtering by file size
-        if (measurement.getType() == MetricType.FILE_SIZE && !measurements.containsKey(file)) {
-            FileMeasurements fileMeasurements = new FileMeasurements(file);
-            fileMeasurements.add(measurement);
-            measurements.put(file, fileMeasurements);
-        }
+        FileMeasurements fileMeasurements = measurements.getOrDefault(file, new FileMeasurements(file));
+        fileMeasurements.add(measurement);
+        measurements.put(file, fileMeasurements);
     }
 
     public MetricsReport build() {
