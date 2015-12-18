@@ -6,23 +6,41 @@ import com.puppycrawl.tools.checkstyle.api.AuditEvent;
 import com.puppycrawl.tools.checkstyle.checks.metrics.CyclomaticComplexityCheck;
 import com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AuditEventToMeasurementConverter {
 
-    public Measurement convert(AuditEvent event) throws IllegalArgumentException {
-        return new Measurement(metricTypeFrom(event), valueFrom(event));
-    }
+    private enum MetricConversion {
+        FILE_SIZE(MetricType.FILE_SIZE, 3),
+        CYCLOMATIC(MetricType.CYCLOMATIC_COMPLEXITY, 3);
 
-    private MetricType metricTypeFrom(AuditEvent evt) {
-        // TODO remove if/else chain
-        if (evt.getSourceName().equals(FileLengthCheck.class.getName())) {
-            return MetricType.FILE_SIZE;
-        } else if (evt.getSourceName().equals(CyclomaticComplexityCheck.class.getName())) {
-            return MetricType.CYCLOMATIC_COMPLEXITY;
+        public final MetricType metric;
+        private final int valueIndex;
+
+        MetricConversion(MetricType metric, int valueIndex) {
+            this.metric = metric;
+            this.valueIndex = valueIndex;
         }
-        throw new IllegalArgumentException("Unsupported metric " + evt.getSourceName());
+
+        public int getValueFrom(AuditEvent event) {
+            return Integer.parseInt(event.getMessage().split(" ")[valueIndex]);
+        }
     }
 
-    private int valueFrom(AuditEvent evt) {
-        return Integer.parseInt(evt.getMessage().split(" ")[3]);
+    private final Map<String, MetricConversion> config;
+
+    public AuditEventToMeasurementConverter() {
+        config = new HashMap<>();
+        config.put(FileLengthCheck.class.getName(), MetricConversion.FILE_SIZE);
+        config.put(CyclomaticComplexityCheck.class.getName(), MetricConversion.CYCLOMATIC);
+    }
+
+    public Measurement convert(AuditEvent event) throws IllegalArgumentException {
+        MetricConversion conversion = config.get(event.getSourceName());
+        if (conversion != null) {
+            return new Measurement(conversion.metric, conversion.getValueFrom(event));
+        }
+        throw new IllegalArgumentException("Unsupported metric " + event.getSourceName());
     }
 }

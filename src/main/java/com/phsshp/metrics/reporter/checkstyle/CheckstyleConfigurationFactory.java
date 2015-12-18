@@ -15,6 +15,7 @@ public class CheckstyleConfigurationFactory {
     public static Configuration defaultConfiguration() {
         DefaultConfiguration treeWalker = createModule("TreeWalker", new HashMap<>());
         treeWalker.addChild(createModule("CyclomaticComplexity", ImmutableMap.of("max", "0")));
+//        treeWalker.addChild(createModule("ClassFanOutComplexity", ImmutableMap.of("max", "0")));
 
         DefaultConfiguration rootConfig = createModule("Checker", ImmutableMap.of("severity", "warning"));
         rootConfig.addChild(createModule("FileLength", ImmutableMap.of("max", "0")));
