@@ -3,7 +3,6 @@ package com.phsshp;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -26,27 +25,25 @@ public class MainTest {
         System.setOut(null);
     }
 
-    @Ignore
     @Test
     public void printTargetFileOnConsole() throws Exception {
         Main.main(new String[] {"src/test/resources/test-project/SomeFile.java"});
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,size,cyclomatic_complexity",
-                "src/test/resources/test-project/SomeFile.java,40,12")));
+                "src/test/resources/test-project/SomeFile.java,40,11")));
     }
 
-    @Ignore
     @Test
     public void printJavaFilesInTargetDirectoyToConsole() throws Exception {
         Main.main(new String[] {"src/test/resources/test-project"});
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,size,cyclomatic_complexity",
-                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,3,0",
-                "src/test/resources/test-project/pkg1/InPackage1.java,2,0",
-                "src/test/resources/test-project/pkg2/InPackage2.java,4,0",
-                "src/test/resources/test-project/SomeFile.java,40,12")));
+                "src/test/resources/test-project/pkg2/InPackage2.java,10,1",
+                "src/test/resources/test-project/pkg1/InPackage1.java,6,1",
+                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,4,0",
+                "src/test/resources/test-project/SomeFile.java,40,11")));
     }
 
     private String linesString(String ...lines) {

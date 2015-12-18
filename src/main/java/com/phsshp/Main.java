@@ -16,9 +16,12 @@ public class Main {
         List<File> files = new JavaFileLister().list(args[0]);
         MetricsReport report = new CheckstyleMetricsReporter().report(files);
 
-        System.out.println("file,size");
+        System.out.println("file,size,cyclomatic_complexity");
         for (FileMeasurements measurements : report.getMeasurements()) {
-            System.out.println(format("%s,%d", measurements.getFile().getPath(), measurements.getFileSize()));
+            System.out.println(format("%s,%d,%d",
+                    measurements.getFile().getPath(),
+                    measurements.getFileSize(),
+                    measurements.getCyclomaticComplexity()));
         }
     }
 }
