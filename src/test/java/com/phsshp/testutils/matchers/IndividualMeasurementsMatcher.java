@@ -12,7 +12,7 @@ public class IndividualMeasurementsMatcher extends TypeSafeDiagnosingMatcher<Fil
 
     private enum MetricToValue {
         FILE_SIZE(FileMeasurements::getFileSize),
-        COMPLEXITY(FileMeasurements::getCyclomaticComplexity);
+        CYCLOMATIC_COMPLEXITY(FileMeasurements::getCyclomaticComplexity);
 
         private final Function<FileMeasurements, Integer> valueFunction;
 
@@ -37,8 +37,8 @@ public class IndividualMeasurementsMatcher extends TypeSafeDiagnosingMatcher<Fil
         return new IndividualMeasurementsMatcher(MetricToValue.FILE_SIZE, expectedValue);
     }
 
-    public static IndividualMeasurementsMatcher hasComplexity(int expectedValue) {
-        return new IndividualMeasurementsMatcher(MetricToValue.COMPLEXITY, expectedValue);
+    public static IndividualMeasurementsMatcher hasCyclomaticComplexity(int expectedValue) {
+        return new IndividualMeasurementsMatcher(MetricToValue.CYCLOMATIC_COMPLEXITY, expectedValue);
     }
 
     @Override
