@@ -11,7 +11,7 @@ public class CommandLineParser {
         options.addOption("output", true, "Filename to save output (default is stdout)");
     }
 
-    public String parse(String args[]) {
+    public CommandLineOptions parse(String args[]) {
         DefaultParser parser = new DefaultParser();
 
         try {
@@ -19,7 +19,7 @@ public class CommandLineParser {
             if (commandLine.getArgList().size() == 0) {
                 printHelpAndExit();
             }
-            return commandLine.getArgList().get(0);
+            return new CommandLineOptions(commandLine.getArgList().get(0));
         } catch (ParseException e) {
             System.out.println("Could not parse: " + e.getMessage());
             printHelpAndExit();
