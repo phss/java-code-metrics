@@ -4,14 +4,13 @@ import com.phsshp.metrics.model.Measurement;
 import com.phsshp.metrics.model.MetricType;
 import com.phsshp.metrics.model.MetricsReport;
 import com.phsshp.metrics.model.MetricsReportBuilder;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 
-import static com.phsshp.testutils.matchers.ComplexityMeasurementsMatcher.hasComplexity;
 import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
-import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
+import static com.phsshp.testutils.matchers.IndividualMeasurementsMatcher.hasComplexity;
+import static com.phsshp.testutils.matchers.IndividualMeasurementsMatcher.hasFileSize;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;

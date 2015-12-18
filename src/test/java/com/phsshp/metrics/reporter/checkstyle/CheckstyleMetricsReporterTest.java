@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
-import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
+import static com.phsshp.testutils.matchers.IndividualMeasurementsMatcher.hasFileSize;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 

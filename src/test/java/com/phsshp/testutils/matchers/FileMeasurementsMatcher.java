@@ -5,7 +5,6 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeDiagnosingMatcher;
 
-import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
 import static java.lang.String.format;
 
 public class FileMeasurementsMatcher extends TypeSafeDiagnosingMatcher<FileMeasurements> {
