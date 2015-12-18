@@ -13,3 +13,9 @@ To generate the UberJAR under `build/libs`:
 ## Running
 
     java -jar build/libs/java-code-metrics-all.jar <some source directory>
+    
+### Options
+
+    usage: java-code-metrics  [OPTION]... [FILE]
+    Code metrics for Java source code
+      -output <arg>   Filename to save output (default is stdout)
