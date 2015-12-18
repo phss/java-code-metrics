@@ -20,12 +20,13 @@ public class Main {
                 .stream().sorted((f1, f2) -> f1.getFile().compareTo(f2.getFile()))
                 .collect(Collectors.toList());
 
-        System.out.println("file,size,cyclomatic_complexity");
+        System.out.println("file,size,cyclomatic_complexity,fanout_complexity");
         for (FileMeasurements measurements : sortedMeasurements) {
-            System.out.println(format("%s,%d,%d",
+            System.out.println(format("%s,%d,%d,%d",
                     measurements.getFile().getPath(),
                     measurements.getFileSize(),
-                    measurements.getCyclomaticComplexity()));
+                    measurements.getCyclomaticComplexity(),
+                    measurements.getFanoutComplexity()));
         }
     }
 }

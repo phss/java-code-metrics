@@ -35,4 +35,17 @@ public class FileMeasurementsTest {
     public void complexityIsZeroIfNoMeasurementReported() throws Exception {
         assertThat(fileMeasurements.getCyclomaticComplexity(), is(0));
     }
+
+    @Test
+    public void fanoutIsFirstReported() throws Exception {
+        fileMeasurements.add(new Measurement(MetricType.FANOUT_COMPLEXITY, 3));
+        fileMeasurements.add(new Measurement(MetricType.FANOUT_COMPLEXITY, 4));
+
+        assertThat(fileMeasurements.getFanoutComplexity(), is(3));
+    }
+
+    @Test
+    public void fanoutIsZeroIfNoMeasurementReported() throws Exception {
+        assertThat(fileMeasurements.getFanoutComplexity(), is(0));
+    }
 }

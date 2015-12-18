@@ -30,6 +30,10 @@ public class FileMeasurements {
         return getSumOfValues(MetricType.CYCLOMATIC_COMPLEXITY);
     }
 
+    public int getFanoutComplexity() {
+        return getFirstValue(MetricType.FANOUT_COMPLEXITY);
+    }
+
     private int getFirstValue(MetricType metric) {
         return measurementsFor(metric).findFirst().map(Measurement::getValue).orElse(0);
     }

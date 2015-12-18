@@ -30,8 +30,8 @@ public class MainTest {
         Main.main(new String[] {"src/test/resources/test-project/SomeFile.java"});
 
         assertThat(outContent.toString(), equalTo(linesString(
-                "file,size,cyclomatic_complexity",
-                "src/test/resources/test-project/SomeFile.java,40,11")));
+                "file,size,cyclomatic_complexity,fanout_complexity",
+                "src/test/resources/test-project/SomeFile.java,40,11,0")));
     }
 
     @Test
@@ -39,11 +39,11 @@ public class MainTest {
         Main.main(new String[] {"src/test/resources/test-project"});
 
         assertThat(outContent.toString(), equalTo(linesString(
-                "file,size,cyclomatic_complexity",
-                "src/test/resources/test-project/SomeFile.java,40,11",
-                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,4,0",
-                "src/test/resources/test-project/pkg1/InPackage1.java,6,1",
-                "src/test/resources/test-project/pkg2/InPackage2.java,10,2")));
+                "file,size,cyclomatic_complexity,fanout_complexity",
+                "src/test/resources/test-project/SomeFile.java,40,11,0",
+                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,4,0,0",
+                "src/test/resources/test-project/pkg1/InPackage1.java,6,1,0",
+                "src/test/resources/test-project/pkg2/InPackage2.java,10,2,0")));
     }
 
     private String linesString(String ...lines) {
