@@ -1,6 +1,13 @@
 package com.phsshp.config;
 
-import org.apache.commons.cli.*;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 
 public class CommandLineParser {
 
@@ -16,14 +23,19 @@ public class CommandLineParser {
 
         try {
             CommandLine commandLine = parser.parse(options, args);
-            if (commandLine.getArgList().size() == 0) {
-                printHelpAndExit();
-            }
-            return new CommandLineOptions(commandLine.getArgList().get(0));
-        } catch (ParseException e) {
+            return new CommandLineOptions(commandLine.getArgList().get(0), outputFrom(commandLine));
+        } catch (Exception e) {
             System.out.println("Could not parse: " + e.getMessage());
             printHelpAndExit();
             return null;
+        }
+    }
+
+    private PrintStream outputFrom(CommandLine commandLine) throws FileNotFoundException {
+        if (commandLine.hasOption("output")) {
+            return new PrintStream(new File(commandLine.getOptionValue("output")));
+        } else {
+            return System.out;
         }
     }
 
