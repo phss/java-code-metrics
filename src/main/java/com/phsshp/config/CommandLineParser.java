@@ -23,6 +23,9 @@ public class CommandLineParser {
 
         try {
             CommandLine commandLine = parser.parse(options, args);
+            if (commandLine.getArgList().size() == 0) {
+                printHelpAndExit();
+            }
             return new CommandLineOptions(commandLine.getArgList().get(0), outputFrom(commandLine));
         } catch (Exception e) {
             System.out.println("Could not parse: " + e.getMessage());
