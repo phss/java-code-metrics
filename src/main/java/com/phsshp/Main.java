@@ -1,5 +1,6 @@
 package com.phsshp;
 
+import com.phsshp.config.CommandLineParser;
 import com.phsshp.file.JavaFileLister;
 import com.phsshp.metrics.model.FileMeasurements;
 import com.phsshp.metrics.model.MetricsReport;
@@ -14,7 +15,8 @@ import static java.lang.String.format;
 public class Main {
 
     public static void main(String args[]) throws Exception {
-        List<File> files = new JavaFileLister().list(args[0]);
+        String path = new CommandLineParser().parse(args);
+        List<File> files = new JavaFileLister().list(path);
         MetricsReport report = new CheckstyleMetricsReporter().report(files);
         List<FileMeasurements> sortedMeasurements = report.getMeasurements()
                 .stream().sorted((f1, f2) -> f1.getFile().compareTo(f2.getFile()))
