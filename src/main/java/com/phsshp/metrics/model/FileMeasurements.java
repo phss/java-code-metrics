@@ -19,4 +19,8 @@ public class FileMeasurements {
     public int getFileSize() {
         return fileSizeMeasurement.getValue();
     }
+
+    public int getCyclomaticComplexity() {
+        return 0;
+    }
 }

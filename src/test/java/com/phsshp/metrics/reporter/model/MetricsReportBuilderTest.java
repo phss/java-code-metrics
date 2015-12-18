@@ -8,9 +8,11 @@ import org.junit.Test;
 
 import java.io.File;
 
+import static com.phsshp.testutils.matchers.ComplexityMeasurementsMatcher.hasComplexity;
 import static com.phsshp.testutils.matchers.FileMeasurementsMatcher.measurementsMatching;
 import static com.phsshp.testutils.matchers.FileSizeMeasurementsMatcher.hasFileSize;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.contains;
 
 public class MetricsReportBuilderTest {
@@ -25,7 +27,7 @@ public class MetricsReportBuilderTest {
         MetricsReport report = builder.build();
 
         assertThat(report.getMeasurements(), contains(
-                measurementsMatching("somefile.java", hasFileSize(42)),
-                measurementsMatching("anotherfile.java", hasFileSize(30))));
+                measurementsMatching("somefile.java", allOf(hasFileSize(42), hasComplexity(0))),
+                measurementsMatching("anotherfile.java", allOf(hasFileSize(30), hasComplexity(0)))));
     }
 }
