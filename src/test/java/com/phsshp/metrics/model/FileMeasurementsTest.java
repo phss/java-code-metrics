@@ -24,11 +24,11 @@ public class FileMeasurementsTest {
     }
 
     @Test
-    public void complexityIsFirstReported() throws Exception {
+    public void complexityIsSumOfMeasurements() throws Exception {
         fileMeasurements.add(new Measurement(MetricType.CYCLOMATIC_COMPLEXITY, 10));
         fileMeasurements.add(new Measurement(MetricType.CYCLOMATIC_COMPLEXITY, 2));
 
-        assertThat(fileMeasurements.getCyclomaticComplexity(), is(10));
+        assertThat(fileMeasurements.getCyclomaticComplexity(), is(12));
     }
 
     @Test

@@ -2,7 +2,7 @@ package com.phsshp.metrics.model;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.stream.Stream;
 
 public class FileMeasurements {
 
@@ -27,11 +27,18 @@ public class FileMeasurements {
     }
 
     public int getCyclomaticComplexity() {
-        return getFirstValue(MetricType.CYCLOMATIC_COMPLEXITY);
+        return getSumOfValues(MetricType.CYCLOMATIC_COMPLEXITY);
     }
 
     private int getFirstValue(MetricType metric) {
-        Optional<Measurement> measurement = measurements.stream().filter(m -> m.getType() ==  metric).findFirst();
-        return measurement.map(Measurement::getValue).orElse(0);
+        return measurementsFor(metric).findFirst().map(Measurement::getValue).orElse(0);
+    }
+
+    private int getSumOfValues(MetricType metric) {
+        return measurementsFor(metric).mapToInt(Measurement::getValue).sum();
+    }
+
+    private Stream<Measurement> measurementsFor(MetricType metric) {
+        return measurements.stream().filter(m -> m.getType() ==  metric);
     }
 }
