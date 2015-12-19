@@ -14,7 +14,14 @@ public class CommandLineParser {
         options = new Options();
         options.addOption(Option.builder("output")
                 .argName("file")
-                .hasArg().desc("save output to <file>, otherwise print to stdout")
+                .hasArg()
+                .desc("save output to <file>, otherwise print to stdout")
+                .build());
+        options.addOption(Option.builder("include")
+                .argName("metrics")
+                .hasArg()
+                .desc("comma separated list of metrics to include in the report (by default all metrics are included). " +
+                        "Valid metrics are: size, cyclomatic_complexity, fanout_complexity")
                 .build());
     }
 
