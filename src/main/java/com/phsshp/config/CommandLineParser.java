@@ -1,5 +1,6 @@
 package com.phsshp.config;
 
+import com.phsshp.metrics.model.Aggregation;
 import com.phsshp.metrics.model.MetricType;
 import org.apache.commons.cli.*;
 
@@ -8,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,6 +35,13 @@ public class CommandLineParser {
                 .desc("comma separated list of metrics to include in the report (by default all metrics are included). " +
                         "Valid metrics are: " + validMetrics)
                 .build());
+        options.addOption(Option.builder("aggregate")
+                .argName("metric=aggregation")
+                .numberOfArgs(2)
+                .valueSeparator()
+                .desc("aggregate a <metric> using the <aggregation>. " +
+                        "Valid aggregations: first, sum, average")
+                .build());
     }
 
     public CommandLineOptions parse(String args[]) {
@@ -45,7 +54,8 @@ public class CommandLineParser {
             }
             return new CommandLineOptions(commandLine.getArgList().get(0),
                     outputFrom(commandLine),
-                    metricsFrom(commandLine));
+                    metricsFrom(commandLine),
+                    aggregationsFrom(commandLine));
         } catch (Exception e) {
             System.out.println("Could not parse: " + e.getMessage());
             printHelpAndExit();
@@ -70,6 +80,15 @@ public class CommandLineParser {
                 .map(String::toUpperCase)
                 .map(MetricType::valueOf)
                 .collect(Collectors.toList());
+    }
+
+    private Map<MetricType, Aggregation> aggregationsFrom(CommandLine commandLine) {
+        Map<MetricType, Aggregation> metricTypeAggregationMap = MetricType.defaultAggregationsPerMetric();
+        commandLine.getOptionProperties("aggregate").forEach((metricName, aggregateName) -> {
+            metricTypeAggregationMap.put(MetricType.valueOf(((String)metricName).toUpperCase()),
+                                         Aggregation.valueOf(((String)aggregateName).toUpperCase()));
+        });
+        return metricTypeAggregationMap;
     }
 
     private void printHelpAndExit() {
