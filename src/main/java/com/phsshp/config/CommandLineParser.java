@@ -1,9 +1,6 @@
 package com.phsshp.config;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
+import org.apache.commons.cli.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,7 +12,10 @@ public class CommandLineParser {
 
     public CommandLineParser() {
         options = new Options();
-        options.addOption("output", true, "Filename to save output (default is stdout)");
+        options.addOption(Option.builder("output")
+                .argName("file")
+                .hasArg().desc("save output to <file>, otherwise print to stdout")
+                .build());
     }
 
     public CommandLineOptions parse(String args[]) {
