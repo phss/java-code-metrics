@@ -3,6 +3,7 @@ package com.phsshp;
 import com.phsshp.config.CommandLineOptions;
 import com.phsshp.config.CommandLineParser;
 import com.phsshp.file.JavaFileLister;
+import com.phsshp.metrics.model.Aggregation;
 import com.phsshp.metrics.model.FileMeasurements;
 import com.phsshp.metrics.model.MetricType;
 import com.phsshp.metrics.model.MetricsReport;
@@ -42,14 +43,10 @@ public class Main {
             List<String> metricValues = new ArrayList<>();
             metricValues.add(measurements.getFile().getPath());
             for (MetricType metric : metrics) {
-                if (metric == MetricType.FILE_SIZE) {
-                    metricValues.add(Integer.toString(measurements.getFileSize()));
-                }
                 if (metric == MetricType.CYCLOMATIC_COMPLEXITY) {
-                    metricValues.add(Integer.toString(measurements.getCyclomaticComplexity()));
-                }
-                if (metric == MetricType.FANOUT_COMPLEXITY) {
-                    metricValues.add(Integer.toString(measurements.getFanoutComplexity()));
+                    metricValues.add(Integer.toString(measurements.getMetricValue(metric, Aggregation.SUM)));
+                } else {
+                    metricValues.add(Integer.toString(measurements.getMetricValue(metric, Aggregation.FIRST)));
                 }
             }
             output.println(metricValues.stream().collect(Collectors.joining(",")));

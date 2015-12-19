@@ -22,24 +22,9 @@ public class FileMeasurements {
         return file;
     }
 
-    public int getFileSize() {
-        return getFirstValue(MetricType.FILE_SIZE);
-    }
-
-    public int getCyclomaticComplexity() {
-        return getSumOfValues(MetricType.CYCLOMATIC_COMPLEXITY);
-    }
-
-    public int getFanoutComplexity() {
-        return getFirstValue(MetricType.FANOUT_COMPLEXITY);
-    }
-
-    private int getFirstValue(MetricType metric) {
-        return measurementsFor(metric).findFirst().map(Measurement::getValue).orElse(0);
-    }
-
-    private int getSumOfValues(MetricType metric) {
-        return measurementsFor(metric).mapToInt(Measurement::getValue).sum();
+    public int getMetricValue(MetricType metric, Aggregation aggregation) {
+        Stream<Measurement> measurements = measurementsFor(metric);
+        return aggregation.aggregateToInt(measurements);
     }
 
     private Stream<Measurement> measurementsFor(MetricType metric) {

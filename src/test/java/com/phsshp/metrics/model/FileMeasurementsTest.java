@@ -11,41 +11,30 @@ public class FileMeasurementsTest {
     private final FileMeasurements fileMeasurements = new FileMeasurements(new File("somefile.java"));
 
     @Test
-    public void fileSizeIsFirstReported() throws Exception {
+    public void getFirstReportedMetric() throws Exception {
         fileMeasurements.add(new Measurement(MetricType.FILE_SIZE, 32));
         fileMeasurements.add(new Measurement(MetricType.FILE_SIZE, 50));
 
-        assertThat(fileMeasurements.getFileSize(), is(32));
+        assertThat(fileMeasurements.getMetricValue(MetricType.FILE_SIZE, Aggregation.FIRST), is(32));
+        assertThat(fileMeasurements.getMetricValue(MetricType.FILE_SIZE, Aggregation.FIRST), is(32));
     }
 
     @Test
-    public void fileSizeIsZeroIfNoMeasurementReported() throws Exception {
-        assertThat(fileMeasurements.getFileSize(), is(0));
+    public void firstReportedMetricIsZeroIfNoMeasurementReported() throws Exception {
+        assertThat(fileMeasurements.getMetricValue(MetricType.FILE_SIZE, Aggregation.FIRST), is(0));
     }
 
     @Test
-    public void complexityIsSumOfMeasurements() throws Exception {
+    public void getSumOfMeasurements() throws Exception {
         fileMeasurements.add(new Measurement(MetricType.CYCLOMATIC_COMPLEXITY, 10));
         fileMeasurements.add(new Measurement(MetricType.CYCLOMATIC_COMPLEXITY, 2));
 
-        assertThat(fileMeasurements.getCyclomaticComplexity(), is(12));
+        assertThat(fileMeasurements.getMetricValue(MetricType.CYCLOMATIC_COMPLEXITY, Aggregation.SUM), is(12));
     }
 
     @Test
-    public void complexityIsZeroIfNoMeasurementReported() throws Exception {
-        assertThat(fileMeasurements.getCyclomaticComplexity(), is(0));
+    public void getSumOfZeroIfNoMeasurementReported() throws Exception {
+        assertThat(fileMeasurements.getMetricValue(MetricType.CYCLOMATIC_COMPLEXITY, Aggregation.SUM), is(0));
     }
 
-    @Test
-    public void fanoutIsFirstReported() throws Exception {
-        fileMeasurements.add(new Measurement(MetricType.FANOUT_COMPLEXITY, 3));
-        fileMeasurements.add(new Measurement(MetricType.FANOUT_COMPLEXITY, 4));
-
-        assertThat(fileMeasurements.getFanoutComplexity(), is(3));
-    }
-
-    @Test
-    public void fanoutIsZeroIfNoMeasurementReported() throws Exception {
-        assertThat(fileMeasurements.getFanoutComplexity(), is(0));
-    }
 }
