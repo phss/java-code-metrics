@@ -10,11 +10,10 @@ import com.phsshp.metrics.reporter.checkstyle.CheckstyleMetricsReporter;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.DoubleStream;
 
 public class Main {
 
@@ -42,7 +41,7 @@ public class Main {
         for (FileMeasurements measurements : sortedMeasurements) {
             String metricValuesString = metrics.stream()
                     .map(metric -> measurements.getMetricValue(metric, metric.getDefaultAggregation()))
-                    .map(m -> Integer.toString(m))
+                    .map(m -> Double.toString(m))
                     .collect(Collectors.joining(","));
             output.println(measurements.getFile().getPath() + "," + metricValuesString);
         }

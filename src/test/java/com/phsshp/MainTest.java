@@ -31,7 +31,7 @@ public class MainTest {
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,file_size,cyclomatic_complexity,fanout_complexity",
-                "src/test/resources/test-project/SomeFile.java,40,11,0")));
+                "src/test/resources/test-project/SomeFile.java,40.0,11.0,0.0")));
     }
 
     @Test
@@ -40,10 +40,10 @@ public class MainTest {
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,file_size,cyclomatic_complexity,fanout_complexity",
-                "src/test/resources/test-project/SomeFile.java,40,11,0",
-                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,4,0,0",
-                "src/test/resources/test-project/pkg1/InPackage1.java,8,1,1",
-                "src/test/resources/test-project/pkg2/InPackage2.java,10,2,0")));
+                "src/test/resources/test-project/SomeFile.java,40.0,11.0,0.0",
+                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,4.0,0.0,0.0",
+                "src/test/resources/test-project/pkg1/InPackage1.java,8.0,1.0,1.0",
+                "src/test/resources/test-project/pkg2/InPackage2.java,10.0,2.0,0.0")));
     }
 
     @Test
@@ -52,10 +52,10 @@ public class MainTest {
 
         assertThat(outContent.toString(), equalTo(linesString(
                 "file,cyclomatic_complexity,file_size",
-                "src/test/resources/test-project/SomeFile.java,11,40",
-                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,0,4",
-                "src/test/resources/test-project/pkg1/InPackage1.java,1,8",
-                "src/test/resources/test-project/pkg2/InPackage2.java,2,10")));
+                "src/test/resources/test-project/SomeFile.java,11.0,40.0",
+                "src/test/resources/test-project/pkg1/AnotherInPackage1.java,0.0,4.0",
+                "src/test/resources/test-project/pkg1/InPackage1.java,1.0,8.0",
+                "src/test/resources/test-project/pkg2/InPackage2.java,2.0,10.0")));
     }
 
     private String linesString(String ...lines) {

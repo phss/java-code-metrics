@@ -22,7 +22,7 @@ public class FileMeasurements {
         return file;
     }
 
-    public int getMetricValue(MetricType metric, Aggregation aggregation) {
+    public double getMetricValue(MetricType metric, Aggregation aggregation) {
         Stream<Measurement> measurements = measurementsFor(metric);
         return aggregation.aggregateToInt(measurements);
     }

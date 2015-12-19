@@ -12,31 +12,31 @@ public class IndividualMeasurementsMatcher extends TypeSafeDiagnosingMatcher<Fil
 
     private final MetricType metric;
     private final Aggregation aggregation;
-    private final int expectedValue;
+    private final double expectedValue;
 
-    private IndividualMeasurementsMatcher(MetricType metric, Aggregation aggregation, int expectedValue) {
+    private IndividualMeasurementsMatcher(MetricType metric, Aggregation aggregation, double expectedValue) {
         this.metric = metric;
         this.aggregation = aggregation;
         this.expectedValue = expectedValue;
     }
 
-    public static IndividualMeasurementsMatcher hasFileSize(int expectedValue) {
+    public static IndividualMeasurementsMatcher hasFileSize(double expectedValue) {
         return new IndividualMeasurementsMatcher(MetricType.FILE_SIZE, Aggregation.FIRST, expectedValue);
     }
 
-    public static IndividualMeasurementsMatcher hasCyclomaticComplexity(int expectedValue) {
+    public static IndividualMeasurementsMatcher hasCyclomaticComplexity(double expectedValue) {
         return new IndividualMeasurementsMatcher(MetricType.CYCLOMATIC_COMPLEXITY, Aggregation.SUM, expectedValue);
     }
 
     @Override
     protected boolean matchesSafely(FileMeasurements actualFileMeasurements, Description mismatchDescription) {
-        int actualValue = actualFileMeasurements.getMetricValue(metric, aggregation);
-        mismatchDescription.appendText(format("actual %s with value '%d'", metric.name(), actualValue));
+        double actualValue = actualFileMeasurements.getMetricValue(metric, aggregation);
+        mismatchDescription.appendText(format("actual %s with value '%s'", metric.name(), actualValue));
         return actualValue == expectedValue;
     }
 
     @Override
     public void describeTo(Description description) {
-        description.appendText(format("expected %s with value '%d'", metric.name(), expectedValue));
+        description.appendText(format("expected %s with value '%s'", metric.name(), expectedValue));
     }
 }

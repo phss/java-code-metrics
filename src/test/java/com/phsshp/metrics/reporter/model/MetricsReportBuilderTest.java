@@ -27,7 +27,7 @@ public class MetricsReportBuilderTest {
         MetricsReport report = builder.build();
 
         assertThat(report.getMeasurements(), contains(
-                measurementsMatching("somefile.java", allOf(hasFileSize(42), hasCyclomaticComplexity(5))),
-                measurementsMatching("anotherfile.java", allOf(hasFileSize(30), hasCyclomaticComplexity(0)))));
+                measurementsMatching("somefile.java", allOf(hasFileSize(42.0), hasCyclomaticComplexity(5.0))),
+                measurementsMatching("anotherfile.java", allOf(hasFileSize(30.), hasCyclomaticComplexity(0.0)))));
     }
 }
