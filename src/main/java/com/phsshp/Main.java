@@ -3,7 +3,6 @@ package com.phsshp;
 import com.phsshp.config.CommandLineOptions;
 import com.phsshp.config.CommandLineParser;
 import com.phsshp.file.JavaFileLister;
-import com.phsshp.metrics.model.Aggregation;
 import com.phsshp.metrics.model.FileMeasurements;
 import com.phsshp.metrics.model.MetricType;
 import com.phsshp.metrics.model.MetricsReport;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -40,16 +40,11 @@ public class Main {
 
     private static void printMetrics(PrintStream output, Collection<MetricType> metrics, List<FileMeasurements> sortedMeasurements) {
         for (FileMeasurements measurements : sortedMeasurements) {
-            List<String> metricValues = new ArrayList<>();
-            metricValues.add(measurements.getFile().getPath());
-            for (MetricType metric : metrics) {
-                if (metric == MetricType.CYCLOMATIC_COMPLEXITY) {
-                    metricValues.add(Integer.toString(measurements.getMetricValue(metric, Aggregation.SUM)));
-                } else {
-                    metricValues.add(Integer.toString(measurements.getMetricValue(metric, Aggregation.FIRST)));
-                }
-            }
-            output.println(metricValues.stream().collect(Collectors.joining(",")));
+            String metricValuesString = metrics.stream()
+                    .map(metric -> measurements.getMetricValue(metric, metric.getDefaultAggregation()))
+                    .map(m -> Integer.toString(m))
+                    .collect(Collectors.joining(","));
+            output.println(measurements.getFile().getPath() + "," + metricValuesString);
         }
     }
 }
