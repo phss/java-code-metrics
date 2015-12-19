@@ -1,16 +1,26 @@
 package com.phsshp.config;
 
+import com.phsshp.metrics.model.MetricType;
 import org.apache.commons.cli.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CommandLineParser {
 
     private final Options options;
 
     public CommandLineParser() {
+        String validMetrics = Stream.of(MetricType.values())
+                .map(MetricType::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.joining(", "));
+
         options = new Options();
         options.addOption(Option.builder("output")
                 .argName("file")
@@ -21,7 +31,7 @@ public class CommandLineParser {
                 .argName("metrics")
                 .hasArg()
                 .desc("comma separated list of metrics to include in the report (by default all metrics are included). " +
-                        "Valid metrics are: size, cyclomatic_complexity, fanout_complexity")
+                        "Valid metrics are: " + validMetrics)
                 .build());
     }
 
@@ -33,7 +43,9 @@ public class CommandLineParser {
             if (commandLine.getArgList().size() == 0) {
                 printHelpAndExit();
             }
-            return new CommandLineOptions(commandLine.getArgList().get(0), outputFrom(commandLine));
+            return new CommandLineOptions(commandLine.getArgList().get(0),
+                    outputFrom(commandLine),
+                    metricsFrom(commandLine));
         } catch (Exception e) {
             System.out.println("Could not parse: " + e.getMessage());
             printHelpAndExit();
@@ -47,6 +59,17 @@ public class CommandLineParser {
         } else {
             return System.out;
         }
+    }
+
+    private Collection<MetricType> metricsFrom(CommandLine commandLine) {
+        if (!commandLine.hasOption("include")) {
+            return Arrays.asList(MetricType.values());
+        }
+        return Stream.of(commandLine.getOptionValue("include").split(","))
+                .map(String::trim)
+                .map(String::toUpperCase)
+                .map(MetricType::valueOf)
+                .collect(Collectors.toList());
     }
 
     private void printHelpAndExit() {
